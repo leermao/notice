@@ -42,6 +42,24 @@ app.get("/api/test", async (req, res) => {
   });
 });
 
+async function getAccessToken(appId, appSecret) {
+  const res = await fetch(
+    `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${appId}&secret=${appSecret}`
+  );
+  const data = await res.json();
+  console.log(data);
+  return data.access_token; // 有效期7200秒
+}
+
+app.get("/api/token", async (req, res) => {
+  const accessToken = await getAccessToken(process.env.APP_ID,process.env.APP_SECRET);
+
+  res.send({
+    code: 0,
+    data: accessToken,
+  });
+});
+
 
 // 获取计数
 app.get("/api/count", async (req, res) => {
