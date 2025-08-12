@@ -3,7 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const { init: initDB, Counter } = require("./db");
-const fetch = require("node-fetch");
+const axios = require("axios");
 
 const logger = morgan("tiny");
 
@@ -44,12 +44,10 @@ app.get("/api/test", async (req, res) => {
 });
 
 async function getAccessToken(appId, appSecret) {
-  const res = await fetch(
+  const res = await axios(
     `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${appId}&secret=${appSecret}`
   );
-  const data = await res.json();
-  console.log(data);
-  return data.access_token; // 有效期7200秒
+  return res.data.access_token;
 }
 
 app.get("/api/token", async (req, res) => {
