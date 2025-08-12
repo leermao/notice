@@ -33,6 +33,16 @@ app.post("/api/count", async (req, res) => {
   });
 });
 
+app.get("/api/test", async (req, res) => {
+  res.send({
+    code: 0,
+    data: {
+      message: "success",
+    },
+  });
+});
+
+
 // 获取计数
 app.get("/api/count", async (req, res) => {
   const result = await Counter.count();
