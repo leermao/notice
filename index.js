@@ -44,9 +44,8 @@ app.get("/api/test", async (req, res) => {
 });
 
 async function getAccessToken(appId, appSecret) {
-  const res = await axios(
-    `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${appId}&secret=${appSecret}`
-  );
+  const url = `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${appId}&secret=${appSecret}`;
+  const res = await axios(url);
   return res.data.access_token;
 }
 
